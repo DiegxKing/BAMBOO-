@@ -5,7 +5,7 @@ include_once "navbar.php"
 <div class="container" >
     <div class="row m-5 no-gutters ">
         <div class="col-md-6 d-none d-md-block">
-        <img src="logo_principal.png" class="img-fluid" style="min-height:50%; margin-top: 70x; padding: 15%; display: block; margin-left: auto;">
+        <img src="logoprincipal.png" class="img-fluid" style="min-height:50%; margin-top: 70x; padding: 15%; display: block; margin-left: auto;">
         </div>
         <div class="col-md-6 bg-white p-5">
             <h3 class="pb-3">Iniciar sesión</h3>
