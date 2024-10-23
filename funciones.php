@@ -42,6 +42,14 @@ function obtenerUsuarioPorId($id){
     return select($sentencia, [$id])[0];
 }
 
+function usuarioExiste($usuario) {
+    $sentencia = "SELECT COUNT(*) as total FROM usuarios WHERE usuario = ?";
+    $resultado = select($sentencia, [$usuario]);
+
+    // Si hay más de 0 coincidencias, el usuario ya existe
+    return $resultado[0]->total > 0;
+}
+
 function obtenerUsuarios(){
     $sentencia = "SELECT id, usuario, nombre, telefono, direccion FROM usuarios";
     return select($sentencia);
