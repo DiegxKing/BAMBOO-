@@ -32,8 +32,6 @@ $cliente = obtenerClientePorId($id);
 
         <div class="text-center mt-3">
             <input type="submit" name="registrar" value="Registrar" class="btn btn-primary btn-lg">
-            
-            </input>
             <a href="clientes.php" class="btn btn-danger btn-lg">
                 <i class="fa fa-times"></i> 
                 Cancelar
@@ -41,29 +39,48 @@ $cliente = obtenerClientePorId($id);
         </div>
     </form>
 </div>
+
 <?php
 if(isset($_POST['registrar'])){
     $nombre = $_POST['nombre'];
     $telefono = $_POST['telefono'];
     $direccion = $_POST['direccion'];
-    if(empty($nombre) 
-    || empty($telefono) 
-    || empty($direccion)){
-        echo'
+
+    // Validación de campos vacíos
+    if(empty($nombre) || empty($telefono) || empty($direccion)){
+        echo '
         <div class="alert alert-danger mt-3" role="alert">
             Debes completar todos los datos.
         </div>';
         return;
-    } 
-    
+    }
+
+    // Validación de longitud del teléfono
+    if(strlen($telefono) != 9){
+        echo '
+        <div class="alert alert-danger mt-3" role="alert">
+            El número de teléfono debe tener 9 dígitos.
+        </div>';
+        return;
+    }
+
+    // Validación del primer dígito del teléfono
+    if($telefono[0] != '9'){
+        echo '
+        <div class="alert alert-danger mt-3" role="alert">
+            El número de teléfono debe comenzar con el dígito 9.
+        </div>';
+        return;
+    }
+
+    // Si pasa todas las validaciones, se procede a la actualización
     include_once "funciones.php";
     $resultado = editarCliente($nombre, $telefono, $direccion, $id);
     if($resultado){
-        echo'
+        echo '
         <div class="alert alert-success mt-3" role="alert">
             Información del cliente actualizada con éxito.
         </div>';
     }
-    
 }
 ?>
