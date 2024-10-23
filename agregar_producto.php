@@ -30,12 +30,9 @@ if(empty($_SESSION['usuario'])) header("location: login.php");
                 <label for="existencia" class="form-label">Existencia</label>
                 <input type="number" name="existencia" step="any" id="existencia" class="form-control" placeholder="Existencia" aria-label="">
             </div>
-            
         </div>
         <div class="text-center mt-3">
             <input type="submit" name="registrar" value="Registrar" class="btn btn-primary btn-lg">
-            
-            </input>
             <a class="btn btn-danger btn-lg" href="productos.php">
                 <i class="fa fa-times"></i> 
                 Cancelar
@@ -43,6 +40,7 @@ if(empty($_SESSION['usuario'])) header("location: login.php");
         </div>
     </form>
 </div>
+
 <?php
 if(isset($_POST['registrar'])){
     $codigo = $_POST['codigo'];
@@ -50,26 +48,35 @@ if(isset($_POST['registrar'])){
     $compra = $_POST['compra'];
     $venta = $_POST['venta'];
     $existencia = $_POST['existencia'];
-    if(empty($codigo) 
-    || empty($nombre) 
-    || empty($compra) 
-    || empty($venta)
-    || empty($existencia)){
-        echo'
+
+    // Validación de campos vacíos
+    if(empty($codigo) || empty($nombre) || empty($compra) || empty($venta) || empty($existencia)){
+        echo '
         <div class="alert alert-danger mt-3" role="alert">
             Debes completar todos los datos.
         </div>';
         return;
-    } 
-    
+    }
+
     include_once "funciones.php";
+
+    // Verificar si el código de barras ya existe
+    $productoExistente = obtenerProductoPorCodigo($codigo);
+    if($productoExistente){
+        echo '
+        <div class="alert alert-danger mt-3" role="alert">
+            El código de barras ya existe en el sistema. Por favor, ingresa uno diferente.
+        </div>';
+        return;
+    }
+
+    // Registrar el producto si no existe
     $resultado = registrarProducto($codigo, $nombre, $compra, $venta, $existencia);
     if($resultado){
-        echo'
+        echo '
         <div class="alert alert-success mt-3" role="alert">
             Producto registrado con éxito.
         </div>';
     }
-    
 }
 ?>
