@@ -3,7 +3,7 @@ include_once "encabezado.php";
 include_once "navbar.php";
 session_start();
 
-if(empty($_SESSION['usuario'])) header("location: login.php");
+if (empty($_SESSION['usuario'])) header("location: login.php");
 
 ?>
 <div class="container">
@@ -28,8 +28,6 @@ if(empty($_SESSION['usuario'])) header("location: login.php");
 
         <div class="text-center mt-3">
             <input type="submit" name="registrar" value="Registrar" class="btn btn-primary btn-lg">
-            
-            </input>
             <a href="usuarios.php" class="btn btn-danger btn-lg">
                 <i class="fa fa-times"></i> 
                 Cancelar
@@ -37,31 +35,59 @@ if(empty($_SESSION['usuario'])) header("location: login.php");
         </div>
     </form>
 </div>
+
 <?php
-if(isset($_POST['registrar'])){
-    $usuario = $_POST['usuario'];
-    $nombre = $_POST['nombre'];
-    $telefono = $_POST['telefono'];
-    $direccion = $_POST['direccion'];
-    if(empty($usuario)
-    ||empty($nombre) 
-    || empty($telefono) 
-    || empty($direccion)){
-        echo'
+if (isset($_POST['registrar'])) {
+    // Sanitizar entrada del usuario
+    $usuario = htmlspecialchars($_POST['usuario'], ENT_QUOTES, 'UTF-8');
+    $nombre = htmlspecialchars($_POST['nombre'], ENT_QUOTES, 'UTF-8');
+    $telefono = htmlspecialchars($_POST['telefono'], ENT_QUOTES, 'UTF-8');
+    $direccion = htmlspecialchars($_POST['direccion'], ENT_QUOTES, 'UTF-8');
+
+    // Validación de campos vacíos
+    if (empty($usuario) || empty($nombre) || empty($telefono) || empty($direccion)) {
+        echo '
         <div class="alert alert-danger mt-3" role="alert">
             Debes completar todos los datos.
         </div>';
         return;
-    } 
-    
+    }
+
+    // Validación del teléfono
+    if (!preg_match('/^[0-9]{10}$/', $telefono)) {
+        echo '
+        <div class="alert alert-danger mt-3" role="alert">
+            El teléfono debe tener 10 dígitos numéricos.
+        </div>';
+        return;
+    }
+
+    // Incluir archivo con funciones
     include_once "funciones.php";
+
+    // Verificar si el usuario ya existe
+    if (usuarioExiste($usuario)) {
+        echo '
+        <div class="alert alert-danger mt-3" role="alert">
+            El nombre de usuario ya existe. Por favor, elige otro.
+        </div>';
+        return;
+    }
+
+    // Registrar usuario
     $resultado = registrarUsuario($usuario, $nombre, $telefono, $direccion);
-    if($resultado){
-        echo'
+    
+    // Manejar resultado del registro
+    if ($resultado) {
+        echo '
         <div class="alert alert-success mt-3" role="alert">
             Usuario registrado con éxito.
         </div>';
+    } else {
+        echo '
+        <div class="alert alert-danger mt-3" role="alert">
+            Error al registrar el usuario.
+        </div>';
     }
-    
 }
 ?>
