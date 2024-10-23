@@ -54,10 +54,11 @@ if (isset($_POST['registrar'])) {
     }
 
     // Validación del teléfono
-    if (!preg_match('/^[0-9]{10}$/', $telefono)) {
+    // Validación del teléfono
+    if (!preg_match('/^9[0-9]{8}$/', $telefono)) {
         echo '
         <div class="alert alert-danger mt-3" role="alert">
-            El teléfono debe tener 10 dígitos numéricos.
+            El teléfono debe comenzar con 9 y tener 9 dígitos numéricos.
         </div>';
         return;
     }
