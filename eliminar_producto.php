@@ -7,7 +7,7 @@ if (!$id) {
 include_once "funciones.php";
 
 $resultado = eliminarProducto($id);
-if(!resultado){
+if(!$resultado){
     echo "Error al eliminar";
     return;
 }

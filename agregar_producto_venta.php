@@ -6,6 +6,15 @@
         if(isset($_POST['codigo'])) {
             $codigo = $_POST['codigo'];
             $producto = obtenerProductoPorCodigo($codigo);
+            
+            if (!ctype_digit($codigo) || strlen($codigo) != 6) {
+                echo "<script type='text/javascript'>
+                        alert('El código debe tener exactamente 6 dígitos.');
+                        window.location.href='vender.php';
+                      </script>";
+                return;
+            }
+
             if(!$producto) {
                 echo "
                 <script type='text/javascript'>
