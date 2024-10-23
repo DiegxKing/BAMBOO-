@@ -46,7 +46,25 @@ if(isset($_POST['registrar'])){
             Debes completar todos los datos.
         </div>';
         return;
-    } 
+    }
+    
+        // Validación de longitud del teléfono
+        if(strlen($telefono) != 9){
+            echo '
+            <div class="alert alert-danger mt-3" role="alert">
+                El número de teléfono debe tener  9 dígitos.
+            </div>';
+            return;
+        }
+    
+        // Validación del primer dígito del teléfono
+        if($telefono[0] != '9'){
+            echo '
+            <div class="alert alert-danger mt-3" role="alert">
+                El número de teléfono debe comenzar con el dígito 9.
+            </div>';
+            return;
+        }
     
     include_once "funciones.php";
     $resultado = registrarCliente($nombre, $telefono, $direccion);
