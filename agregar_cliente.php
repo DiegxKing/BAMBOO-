@@ -47,6 +47,25 @@ if(isset($_POST['registrar'])){
         </div>';
         return;
     }
+
+      // Validación de campos vacíos
+      if (empty($nombre) || empty($telefono) || empty($direccion)) {
+        echo '
+        <div class="alert alert-danger mt-3" role="alert">
+            Debes completar todos los datos.
+        </div>';
+        return;
+    }
+
+    // Validación para evitar números en el nombre
+    if (!preg_match('/^[a-zA-Z\s]+$/', $nombre)) {
+        echo '
+        <div class="alert alert-danger mt-3" role="alert">
+            El nombre no debe contener números ni caracteres especiales.
+        </div>';
+        return;
+    }
+
     
         // Validación de longitud del teléfono
         if(strlen($telefono) != 9){
