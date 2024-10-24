@@ -11,7 +11,7 @@ if (empty($_SESSION['usuario'])) header("location: login.php");
     <form method="post">
         <div class="mb-3">
             <label for="usuario" class="form-label">Nombre de usuario</label>
-            <input type="text" name="usuario" class="form-control" id="usuario" placeholder="Escribe el nombre de usuario. Ej. Paco">
+            <input type="text" name="usuario" class="form-control" id="usuario" placeholder="Escribe el nombre de usuario. Ej. Paco" >
         </div>
         <div class="mb-3">
             <label for="nombre" class="form-label">Nombre completo</label>
@@ -53,6 +53,24 @@ if (isset($_POST['registrar'])) {
         return;
     }
 
+        // Validación para evitar números en nombre de usuario y nombre completo
+        if (!preg_match('/^[a-zA-Z\s]+$/', $usuario)) {
+            echo '
+            <div class="alert alert-danger mt-3" role="alert">
+                El nombre de usuario no debe contener números ni caracteres especiales.
+            </div>';
+            return;
+        }
+    
+        if (!preg_match('/^[a-zA-Z\s]+$/', $nombre)) {
+            echo '
+            <div class="alert alert-danger mt-3" role="alert">
+                El nombre completo no debe contener números ni caracteres especiales.
+            </div>';
+            return;
+        }
+    
+
     // Validación del teléfono
     // Validación del teléfono
     if (!preg_match('/^9[0-9]{8}$/', $telefono)) {
@@ -67,10 +85,10 @@ if (isset($_POST['registrar'])) {
     include_once "funciones.php";
 
     // Verificar si el usuario ya existe
-    if (usuarioExiste($usuario)) {
+    if (usuarioExiste($usuario, $nombre)) {
         echo '
         <div class="alert alert-danger mt-3" role="alert">
-            El nombre de usuario ya existe. Por favor, elige otro.
+            El nombre de usuario o el nombre completo ya existe. Por favor, elige otro.
         </div>';
         return;
     }
