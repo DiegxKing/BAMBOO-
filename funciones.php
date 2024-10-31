@@ -451,3 +451,34 @@ function conectarBaseDatos() {
 	     throw new \PDOException($e->getMessage(), (int)$e->getCode());
 	}
 }
+function verificarInactividad() {
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+
+    if (isset($_SESSION['usuario'])) { // Cambié 'usuario_id' por 'usuario'
+        $inactivity_limit = 480; // 8 minutos de inactividad
+
+        if (isset($_SESSION['last_activity'])) {
+            $inactive_time = time() - $_SESSION['last_activity'];
+
+            // Mensaje de depuración
+            error_log("Tiempo de inactividad: $inactive_time segundos");
+
+            if ($inactive_time > $inactivity_limit) {
+                // Mensaje de depuración antes de destruir la sesión
+                echo "Sesión expirada. Cerrando sesión...<br>";
+                error_log("Sesión expirada. Cerrando sesión...");
+
+                session_unset();
+                session_destroy();
+                header("Location: login.php");
+                exit();
+            }
+        }
+
+        // Actualiza la última actividad
+        $_SESSION['last_activity'] = time();
+    }
+}
+

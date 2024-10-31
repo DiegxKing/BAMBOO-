@@ -41,13 +41,23 @@ $clientes = obtenerClientes();
                         </a>
                     </td>
                     <td>
-                        <a class="btn btn-danger" href="eliminar_cliente.php?id=<?php echo $cliente->id;?>">
+                        <!-- Modificamos el enlace de eliminación -->
+                        <a class="btn btn-danger" 
+                           href="eliminar_cliente.php?id=<?php echo $cliente->id;?>" 
+                           onclick="return confirmarEliminacion();">
                             <i class="fa fa-trash"></i>
                             Eliminar
                         </a>
                     </td>
                 </tr>
             <?php } ?>
-        </tbody>
+        </tbody>        
     </table>
 </div>
+
+<!-- JavaScript para mostrar mensaje de confirmación -->
+<script>
+function confirmarEliminacion() {
+    return confirm('¿Estás seguro de que deseas eliminar este cliente?');
+}
+</script>
