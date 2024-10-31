@@ -9,7 +9,7 @@
     <link rel="icon" type="image/x-icon" href="logo_principal.png">
     <script src="bootstrap/bootstrap.min.js"></script>
     <script src="bootstrap/bootstrap.bundle.min.js"></script>
-    <title>Ventas-PHP</title>
+    <title>Bamboo</title>
 </head>
 <body>
     
