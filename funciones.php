@@ -431,6 +431,7 @@ function editar($sentencia, $parametros ){
     return $respuesta->execute($parametros);
 }
 
+//CONEXION A LA BASE DE DATOS
 function conectarBaseDatos() {
 	$host = "localhost";
 	$db   = "ventas_php";

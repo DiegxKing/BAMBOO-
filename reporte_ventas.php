@@ -35,6 +35,7 @@ $clientes = obtenerClientes();
 $usuarios = obtenerUsuarios();
 ?>
 <div class="container">
+    <br>
     <h2>Reporte de ventas : 
         <?php 
         if(empty($fechaInicio)) echo HOY;

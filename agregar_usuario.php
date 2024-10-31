@@ -7,11 +7,12 @@ if (empty($_SESSION['usuario'])) header("location: login.php");
 
 ?>
 <div class="container">
-    <h3>Agregar usuario</h3>
+    <br>
+    <h3>Agregar Usuario</h3>
     <form method="post">
         <div class="mb-3">
             <label for="usuario" class="form-label">Nombre de usuario</label>
-            <input type="text" name="usuario" class="form-control" id="usuario" placeholder="Escribe el nombre de usuario. Ej. Paco" >
+            <input type="text" name="usuario" class="form-control" id="usuario" placeholder="Escribe el nombre de usuario. Ej. Paco">
         </div>
         <div class="mb-3">
             <label for="nombre" class="form-label">Nombre completo</label>
@@ -19,7 +20,7 @@ if (empty($_SESSION['usuario'])) header("location: login.php");
         </div>
         <div class="mb-3">
             <label for="telefono" class="form-label">Teléfono</label>
-            <input type="text" name="telefono" class="form-control" id="telefono" placeholder="Ej. 2111568974">
+            <input type="text" name="telefono" class="form-control" id="telefono" placeholder="Ej. 9111568974">
         </div>
         <div class="mb-3">
             <label for="direccion" class="form-label">Dirección</label>
@@ -53,25 +54,23 @@ if (isset($_POST['registrar'])) {
         return;
     }
 
-        // Validación para evitar números en nombre de usuario y nombre completo
-        if (!preg_match('/^[a-zA-Z\s]+$/', $usuario)) {
-            echo '
-            <div class="alert alert-danger mt-3" role="alert">
-                El nombre de usuario no debe contener números ni caracteres especiales.
-            </div>';
-            return;
-        }
-    
-        if (!preg_match('/^[a-zA-Z\s]+$/', $nombre)) {
-            echo '
-            <div class="alert alert-danger mt-3" role="alert">
-                El nombre completo no debe contener números ni caracteres especiales.
-            </div>';
-            return;
-        }
-    
+    // Validación para evitar números en nombre de usuario y nombre completo
+    if (!preg_match('/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/', $usuario)) {
+        echo '
+        <div class="alert alert-danger mt-3" role="alert">
+            El nombre de usuario no debe contener números ni caracteres especiales.
+        </div>';
+        return;
+    }
 
-    // Validación del teléfono
+    if (!preg_match('/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/', $nombre)) {
+        echo '
+        <div class="alert alert-danger mt-3" role="alert">
+            El nombre completo no debe contener números ni caracteres especiales.
+        </div>';
+        return;
+    }
+
     // Validación del teléfono
     if (!preg_match('/^9[0-9]{8}$/', $telefono)) {
         echo '
@@ -110,3 +109,4 @@ if (isset($_POST['registrar'])) {
     }
 }
 ?>
+

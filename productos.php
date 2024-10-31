@@ -17,13 +17,14 @@ $cartas = [
 ];
 ?>
 <div class="container mt-3">
+    <br>
     <h1>
         <a class="btn btn-success btn-lg" href="agregar_producto.php">
             <i class="fa" style="color:#fff; background:#466320;"></i>
             Agregar
         </a>
         Productos
-    </h1>
+    </h1><br>
     <?php include_once "cartas_totales.php"; ?>
 
     <form action="" method="post" class="input-group mb-3 mt-3">
@@ -56,7 +57,19 @@ $cartas = [
                     <td><?= '$'.$producto->compra; ?></td>
                     <td><?= '$'.$producto->venta; ?></td>
                     <td><?= '$'. floatval($producto->venta - $producto->compra); ?></td>
-                    <td><?= $producto->existencia; ?></td>
+                    <td>
+                    <?php 
+                        if($producto->existencia == 0){
+                            ?><div>
+                                <a class="btn btn-danger">
+                                Sin Stock
+                                </a>
+                            </div><?php
+                        } else {
+                            echo $producto->existencia;
+                        }
+                    ?>
+                    </td>
                     <td>
                         <a class="btn" style="color:#fff; background:#466320;" href="editar_producto.php?id=<?= $producto->id; ?>">
                             <i class="fa fa-edit"></i>
@@ -64,7 +77,7 @@ $cartas = [
                         </a>
                     </td>
                     <td>
-                        <a class="btn btn-danger" href="eliminar_producto.php?id=<?= $producto->id; ?>">
+                        <a class="btn btn-danger" href="eliminar_producto.php?id=<?= $producto->id; ?>" onclick="return confirmarEliminacion();" >
                             <i class="fa fa-trash"></i>
                             Eliminar
                         </a>
@@ -74,3 +87,9 @@ $cartas = [
         </tbody>
     </table>
 </div>
+
+<script>
+function confirmarEliminacion() {
+    return confirm('¿Estás seguro de que deseas eliminar este producto?');
+}
+</script>

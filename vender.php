@@ -19,6 +19,14 @@ $clienteSeleccionado = (isset($_SESSION['clienteVenta'])) ? obtenerClientePorId(
         </div>
     </form>
 
+    <?php if (isset($_SESSION['mensaje_error'])): ?>
+        <div class="alert alert-danger mt-3" role="alert">
+            <?= $_SESSION['mensaje_error']; ?>
+        </div>
+        <?php unset($_SESSION['mensaje_error']); // Limpiar el mensaje después de mostrarlo ?>
+    <?php endif; ?>
+
+
     <?php if($_SESSION['lista']) {?>
     <div>
         <table class="table">

@@ -7,6 +7,7 @@ if(empty($_SESSION['usuario'])) header("location: login.php");
 
 ?>
 <div class="container">
+    <br>
     <h3>Agregar cliente</h3>
     <form method="post">
         <div class="mb-3">

@@ -9,6 +9,7 @@ if(empty($_SESSION['usuario'])) header("location: login.php");
 $clientes = obtenerClientes();
 ?>
 <div class="container">
+    <br>
     <h1>
         <a class="btn btn-lg" style="color:#fff; background:#466320;" href="agregar_cliente.php">
             <i class="fa fa-plus"></i>

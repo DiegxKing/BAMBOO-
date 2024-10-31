@@ -8,6 +8,7 @@ if(empty($_SESSION['idUsuario'])) header("location: login.php");
 $usuarios = obtenerUsuarios();
 ?>
 <div class="container">
+    <br>
     <h1>
         <a class="btn btn-lg" style="color:#fff; background:#466320;" href="agregar_usuario.php">
             <i class="fa fa-plus"></i>
@@ -42,8 +43,9 @@ $usuarios = obtenerUsuarios();
                         </a>
                     </td>
                     <td>
-                        <a class="btn btn-danger" href="eliminar_usuario.php?id=<?php echo $usuario->id; ?>">
-                            <i class="fa fa-trash"></i>
+                        <a href="eliminar.php?id=<?php echo $elemento['id']; ?>" 
+                            onclick="return confirmarEliminacion();" 
+                            class="btn btn-danger">
                             Eliminar
                         </a>
                     </td>
@@ -52,3 +54,9 @@ $usuarios = obtenerUsuarios();
         </tbody>
     </table>
 </div>
+
+<script>
+function confirmarEliminacion() {
+    return confirm('¿Estás seguro de que deseas eliminar este usuario?');
+}
+</script>

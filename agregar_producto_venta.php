@@ -23,6 +23,17 @@
                 </script>";
                 return;
             }
+
+            if ($producto) {
+                if ($producto->existencia > 0) {
+                    // Si hay stock, agregar a la lista de venta
+                    $_SESSION['lista'][] = $producto;
+                    $producto->cantidad = 1; // Puedes ajustar la cantidad según sea necesario
+                } else {
+                    // Si no hay stock, establecer un mensaje de error en la sesión
+                    $_SESSION['mensaje_error'] = "El producto '{$producto->nombre}' se encuentra sin stock.";
+                }
+            }
             
             print_r($producto);
             $_SESSION['lista'] = agregarProductoALista($producto,  $_SESSION['lista']);
